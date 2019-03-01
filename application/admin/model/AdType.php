@@ -3,17 +3,18 @@ namespace app\admin\model;
 
 use think\Model;
 
-class CommentTemplet extends Model
+class AdType extends Model
 {
 
     /**
-     * 获取评论模板
+     * 获取广告类型
      * @return false|\PDOStatement|string|\think\Collection
      */
-    public function get_templet($where='',$num=6,$page=0,$field='a.*')
+    public function get_type($where='',$num=6,$page=0,$field='a.*,t.templet_title')
     {
         $this->field($field)->alias('a')
-            ->where($where)->order('a.id desc');
+            ->join('ac_ad_templet t','t.templet_id = a.templet_id,','LEFT')
+            ->where($where)->order('a.type_id desc');
 
         if (!$page) {
             $list = $this->limit($num)->select();
@@ -25,14 +26,14 @@ class CommentTemplet extends Model
     }
 
     /**
-     * 获取评论模板总记录数
+     * 获取总记录数
      * @return int|string
      */
-    public function get_templet_count($where)
+    public function get_type_count($where='')
     {
-        $count = $this->alias('a')
+        return $this->alias('a')
+            ->join('ac_ad_templet t','t.templet_id = a.templet_id,','LEFT')
             ->where($where)->count();
-        return $count;
     }
 
 }
