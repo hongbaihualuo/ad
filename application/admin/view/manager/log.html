@@ -1,0 +1,69 @@
+{extend name="public/base"}
+{block name="meta"}{/block}
+{block name="content"}
+<div class="x-body">
+    <div class="layui-row">
+        <form class="layui-form layui-col-md12 x-so" action="{:url('manager/log')}" method="post">
+            <input class="layui-input" placeholder="开始日" value="{$data['search']['start']}" name="start" id="start">
+            <input class="layui-input" placeholder="截止日" value="{$data['search']['end']}" name="end" id="end">
+            <input type="text" name="account"  placeholder="请输入账号" value="{$data['search']['account']}" autocomplete="off" class="layui-input">
+            <input type="text" name="realname"  placeholder="请输入姓名" value="{$data['search']['realname']}" autocomplete="off" class="layui-input">
+            <div data-id="{$data['search']['type']}" class="layui-input-inline mt-3">
+                <select name="type" lay-verify="type" lay-search="">
+                    <option value="" >请选择</option>
+                    <option value="0" {if condition="is_numeric($data['search']['type']) && $data['search']['type'] == 0"} selected {/if}>登录</option>
+                    <option value="1" {if condition="$data['search']['type'] == 1"} selected {/if}>添加</option>
+                    <option value="2" {if condition="$data['search']['type'] == 2"} selected {/if}>修改</option>
+                    <option value="3" {if condition="$data['search']['type'] == 3"} selected {/if}>删除</option>
+                    <option value="4" {if condition="$data['search']['type'] == 4"} selected {/if}>其他</option>
+                </select>
+            </div>
+            <button class="layui-btn mt-3"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
+        </form>
+    </div>
+    <table class="layui-table">
+        <thead>
+        <tr>
+            <th>标题</th>
+            <th>内容</th>
+            <th>管理员</th>
+            <th>管理员姓名</th>
+            <th>类型</th>
+            <th>ip</th>
+            <th>时间</th>
+        </tr>
+        </thead>
+        <tbody>
+        {volist name="data.list" id="v"}
+        <tr>
+            <td>{$v.title}</td>
+            <td>{$v.content}</td>
+            <td>{$v.manage}</td>
+            <td>{$v.real_name}</td>
+            <td>
+                {if condition="$v['type'] == 0"}
+                <span class="x-green">登录</span>
+                {elseif condition="$v['type'] == 1" /}
+                <span class="x-green">添加</span>
+                {elseif condition="$v['type'] == 2" /}
+                <span class="x-green">修改</span>
+                {elseif condition="$v['type'] == 3" /}
+                <span class="x-green">删除</span>
+                {elseif condition="$v['type'] == 3" /}
+                <span class="x-green">其他</span>
+                {/if}
+            </td>
+            <td>{$v.ip}</td>
+            <th>{$v.add_time}</th>
+        </tr>
+        {/volist}
+        </tbody>
+    </table>
+    {$data.page}
+</div>
+<script>
+    $(function(){
+        Common.time();
+    })
+</script>
+{/block}

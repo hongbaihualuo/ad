@@ -1,0 +1,84 @@
+{extend name="public/base"}
+{block name="meta"}{/block}
+{block name="content"}
+<div class="x-body">
+    <form class="layui-form">
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                <span class="x-red">*</span>轮播标题
+            </label>
+            <div class="layui-input-block">
+                <input type="text" maxlength="32" name="title" lay-verify="title" placeholder="轮播标题（如没有可忽略）" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                轮播描述
+            </label>
+            <div class="layui-input-block">
+                <input type="text" maxlength="128" name="desc" lay-verify="desc" placeholder="轮播描述（如没有可忽略）" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                轮播图片
+            </label>
+            <div class="layui-input-block">
+                <div class="layui-upload">
+                    <button type="button" class="layui-btn" id="img" url="base_upload">上传图片</button>
+                    <div class="layui-upload-list">
+                        <img class="layui-upload-img set-base-img" id="demo1" >
+                        <input type="hidden" name="img" lay-verify="img" value="">
+                        <p id="demoText"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                链接
+            </label>
+            <div class="layui-input-block">
+                <input type="text" maxlength="128" name="banner_url" lay-verify="banner_url" placeholder="轮播所对应链接" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                是否显示
+            </label>
+            <div class="layui-input-block">
+                <input type="radio" name="is_show" value="0" title="显示" checked="">
+                <input type="radio" name="is_show" value="1" title="隐藏">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                类型
+            </label>
+            <div class="layui-input-block">
+                <input type="radio" name="type" value="0" title="pc" checked="">
+                <input type="radio" name="type" value="1" title="wap">
+                <input type="radio" name="type" value="2" title="app">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                排序
+            </label>
+            <div class="layui-input-block">
+                <input type="number" maxlength="3" name="orderby" lay-verify="orderby" min="1" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label"></label>
+            <button  class="layui-btn" lay-filter="submit" lay-submit="">
+                保存
+            </button>
+        </div>
+    </form>
+</div>
+<script>
+    Common.upload_one('#img');
+    Common.form_sumbit('submit','{:url("set/carousel_add")}');
+</script>
+{/block}

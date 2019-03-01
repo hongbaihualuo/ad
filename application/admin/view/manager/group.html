@@ -1,0 +1,53 @@
+{extend name="public/base"}
+{block name="meta"}{/block}
+{block name="content"}
+<div class="x-body">
+    <xblock>
+        <button class="layui-btn" onclick="x_admin_show('添加管理组','{:url("manager/group_add")}',400,300)"><i class="layui-icon"></i>添加</button>
+        <span class="x-right" style="line-height:40px">共有数据：{$count} 条</span>
+    </xblock>
+    <table class="layui-table">
+        <thead>
+        <tr>
+            <th>组名</th>
+            <th>描述</th>
+            <th>状态</th>
+            <th>权限</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {volist name="list" id="v"}
+        <tr>
+            <td>{$v.manage_group_name}</td>
+            <td>{$v.manage_group_desc}</td>
+            <td>
+                {if condition="$v['status'] == 0"}
+                <span class="x-green">正常</span>
+                {else /}
+                <span class="x-red">停用</span>
+                {/if}
+            </td>
+            <td>
+                <button class="layui-btn layui-btn layui-btn-xs" onclick="x_admin_show('权限设置','{:url("manager/group_right",["id"=>$v["manage_group_id"]])}',800,600)">
+                <i class="layui-icon"></i>编辑
+                </button>
+            </td>
+            <td class="td-manage">
+                <a title="编辑"  onclick="x_admin_show('编辑','{:url("manager/group_edit",["id"=>$v["manage_group_id"]])}',400,300)" href="javascript:;">
+                    <i class="layui-icon">&#xe642;</i>
+                </a>
+                <a mark="del" title="若删除此组，所对应的所有管理员都将被删除，请谨慎操作！" url="{:url('manager/group_delete',['id'=>$v['manage_group_id']])}" href="javascript:;">
+                    <i class="layui-icon">&#xe640;</i>
+                </a>
+            </td>
+        </tr>
+        {/volist}
+        </tbody>
+    </table>
+    {$page}
+</div>
+<script>
+    Common.del();
+</script>
+{/block}

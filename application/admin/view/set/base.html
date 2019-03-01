@@ -1,0 +1,137 @@
+{extend name="public/base"}
+{block name="meta"}{/block}
+{block name="content"}
+<div class="x-body">
+    <form class="layui-form">
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                域名
+            </label>
+            <div class="layui-input-block">
+                <input type="text" maxlength="32" name="domain" lay-verify="domain" placeholder="网站域名" value="{$system.domain}" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                网站名称
+            </label>
+            <div class="layui-input-block">
+                <input type="text" maxlength="32" name="title" lay-verify="title" placeholder="网站名称" value="{$system.title}" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                关键词
+            </label>
+            <div class="layui-input-block">
+                <input type="text" maxlength="64" name="keywords" lay-verify="keywords" placeholder="关键词" value="{$system.keywords}" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                描述
+            </label>
+            <div class="layui-input-block">
+                <input type="text" maxlength="255" name="desc" lay-verify="desc" placeholder="网站描述" value="{$system.desc}" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                版权
+            </label>
+            <div class="layui-input-block">
+                <input type="text" maxlength="64" name="copyright" lay-verify="copyright" placeholder="网站版权" value="{$system.copyright}" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                icp备案号
+            </label>
+            <div class="layui-input-block">
+                <input type="text" maxlength="64" name="icp" lay-verify="icp" placeholder="网站icp备案号" value="{$system.icp}" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                企业名
+            </label>
+            <div class="layui-input-block">
+                <input type="text" maxlength="64" name="company" lay-verify="company" placeholder="网站所属企业名" value="{$system.company}" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                企业地址
+            </label>
+            <div class="layui-input-block">
+                <input type="text" maxlength="64" name="address" lay-verify="address" placeholder="企业地址" value="{$system.address}" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                联系电话
+            </label>
+            <div class="layui-input-block">
+                <input type="text" maxlength="16" name="webphone" lay-verify="webphone" placeholder="联系电话" value="{$system.phone}" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                联系QQ
+            </label>
+            <div class="layui-input-block ">
+                <input type="text" maxlength="11" name="webqq" lay-verify="webqq" placeholder="联系QQ" value="{$system.qq}" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                联系邮箱
+            </label>
+            <div class="layui-input-block">
+                <input type="text" maxlength="64" name="webemail" lay-verify="webemail" placeholder="联系邮箱" value="{$system.email}" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                微信二维码
+            </label>
+            <div class="layui-input-block">
+                <div class="layui-upload">
+                    <button type="button" class="layui-btn" id="wechat" url="{:url('set/base_upload')}">上传图片</button>
+                    <div class="layui-upload-list">
+                        <img class="layui-upload-img set-base-img" id="demo1" {if condition="$system['wechat']"} src="{$system.wechat}" {/if}>
+                        <input type="hidden" name="wechat" lay-verify="wechat" value="{$system.wechat}">
+                        <p id="demoText"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                简介
+            </label>
+            <div class="layui-input-block">
+                <textarea name="instructions" lay-verify="instructions" placeholder="网站简介" class="layui-textarea">{$system.instructions}</textarea>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                关于我们
+            </label>
+            <div class="layui-input-block">
+                <textarea name="about" lay-verify="about" placeholder="关于我们的介绍" class="layui-textarea">{$system.about}</textarea>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label"></label>
+            <button  class="layui-btn" lay-filter="base_submit" lay-submit="">
+                保存
+            </button>
+        </div>
+    </form>
+</div>
+<script>
+    Common.upload_one('#wechat');
+    Common.form_sumbit('base_submit','{:url("set/base_change")}');
+</script>
+{/block}

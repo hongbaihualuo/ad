@@ -1,0 +1,65 @@
+{extend name="public/base"}
+{block name="meta"}{/block}
+{block name="content"}
+<div class="x-body">
+    <form class="layui-form">
+        <div class="layui-form-item">
+            <input type="hidden" name="id" lay-verify="id" value="{$detail.manage_id}">
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                <span class="x-red">*</span>账号
+            </label>
+            <div class="layui-input-block">
+                <input type="text" maxlength="32" name="account" lay-verify="account" placeholder="登录账号" readonly value="{$detail.manage}" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                姓名
+            </label>
+            <div class="layui-input-block">
+                <input type="text" maxlength="32" name="name" lay-verify="name" placeholder="真实姓名" value="{$detail.real_name}" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                <span class="x-red">*</span>密码
+            </label>
+            <div class="layui-input-block">
+                <input type="password" maxlength="32" name="password" lay-verify="password" placeholder="如不修改请勿填写！"  autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                管理组
+            </label>
+            <div class="layui-input-block">
+                <select name="group" lay-verify="group" lay-search="">
+                    {volist name='group' id='v'}
+                    <option {if condition="$detail['manage_group_id']==$v['manage_group_id']"} selected {/if} value="{$v.manage_group_id}">{$v.manage_group_name}</option>
+                    {/volist}
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                是否启用
+            </label>
+            <div class="layui-input-block">
+                <input type="radio" name="status" value="0" title="正常" {if condition="$detail['status']==0"} checked {/if}>
+                <input type="radio" name="status" value="1" title="停用" {if condition="$detail['status']==1"} checked {/if}>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label"></label>
+            <button  class="layui-btn" lay-filter="submit" lay-submit="">
+                保存
+            </button>
+        </div>
+    </form>
+</div>
+<script>
+    Common.form_sumbit('submit','{:url("manager/manager_edit")}');
+</script>
+{/block}

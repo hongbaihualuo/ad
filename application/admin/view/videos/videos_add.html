@@ -1,0 +1,82 @@
+{extend name="public/base"}
+{block name="meta"}{/block}
+{block name="content"}
+<div class="x-body">
+    <form class="layui-form">
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                <span class="x-red">*</span>视频标题
+            </label>
+            <div class="layui-input-block">
+                <input type="text" maxlength="32" name="title" lay-verify="title" placeholder="视频标题" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                用户账号
+            </label>
+            <div class="layui-input-block">
+                <input type="text" maxlength="32" name="account" lay-verify="account" placeholder="发布用户" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                视频
+            </label>
+            <div class="layui-input-block">
+                <div class="layui-upload">
+                    <button type="button" class="layui-btn" id="video" url="{:url('videos/upload_video')}">上传视频</button>
+                    <div class="layui-upload-list">
+                        <video class="layui-upload-img set-base-img" id="demo1" controls="controls" ></video>
+                        <input type="hidden" name="video" lay-verify="video" value="">
+                        <p id="demoText"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                好评
+            </label>
+            <div class="layui-input-block">
+                <input type="number" min="0" name="good" lay-verify="good" placeholder="好评数" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                差评
+            </label>
+            <div class="layui-input-block">
+                <input type="number" min="0" name="bad" lay-verify="bad" placeholder="差评数" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                转发
+            </label>
+            <div class="layui-input-block">
+                <input type="number" min="0" name="send" lay-verify="send" placeholder="转发数" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                是否显示
+            </label>
+            <div class="layui-input-block">
+                <input type="radio" name="status" value="0" title="显示" checked="">
+                <input type="radio" name="status" value="1" title="隐藏">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label"></label>
+            <button  class="layui-btn" lay-filter="submit" lay-submit="">
+                保存
+            </button>
+        </div>
+    </form>
+</div>
+<script>
+    Common.upload_video_one('#video');
+    Common.form_sumbit('submit','{:url("videos/videos_add")}');
+</script>
+{/block}

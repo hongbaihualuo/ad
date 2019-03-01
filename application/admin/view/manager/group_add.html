@@ -1,0 +1,42 @@
+{extend name="public/base"}
+{block name="meta"}{/block}
+{block name="content"}
+<div class="x-body">
+    <form class="layui-form">
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                <span class="x-red">*</span>组名
+            </label>
+            <div class="layui-input-block">
+                <input type="text" maxlength="32" name="name" lay-verify="name" placeholder="管理组名" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                描述
+            </label>
+            <div class="layui-input-block">
+                <input type="text" maxlength="200" name="desc" lay-verify="desc" placeholder="管理组描述" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                是否启用
+            </label>
+            <div class="layui-input-block">
+                <input type="radio" name="status" lay-verify="status" value="0" title="启用" checked="">
+                <input type="radio" name="status" lay-verify="status" value="1" title="停用">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label"></label>
+            <button  class="layui-btn" lay-filter="submit" lay-submit="">
+                保存
+            </button>
+        </div>
+    </form>
+</div>
+<script>
+    Common.form_sumbit('submit','{:url("manager/group_add")}');
+</script>
+{/block}

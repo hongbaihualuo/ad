@@ -1,0 +1,55 @@
+{extend name="public/base"}
+{block name="meta"}{/block}
+{block name="content"}
+<div class="x-body">
+    <div class="layui-row">
+        <form class="layui-form layui-col-md12 x-so" action="{:url('manager/manager')}" method="post">
+            <input type="text" name="account"  placeholder="请输入账号" value="{$data['search']['account']}" autocomplete="off" class="layui-input">
+            <input type="text" name="realname"  placeholder="请输入姓名" value="{$data['search']['realname']}" autocomplete="off" class="layui-input">
+            <button class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
+        </form>
+    </div>
+    <xblock>
+        <button class="layui-btn" onclick="x_admin_show('添加管理员','{:url("manager/manager_add")}',450,500)"><i class="layui-icon"></i>添加</button>
+        <span class="x-right" style="line-height:40px">共有数据：{$data.count} 条</span>
+    </xblock>
+    <table class="layui-table">
+        <thead>
+        <tr>
+            <th>账号</th>
+            <th>姓名</th>
+            <th>组名</th>
+            <th>状态</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {volist name="data.list" id="v"}
+        <tr>
+            <td>{$v.manage}</td>
+            <td>{$v.real_name}</td>
+            <td>{$v.manage_group_name}</td>
+            <td>
+                <form class="layui-form" data="{$v['status']}">
+                    <input type="checkbox" name="status"  data-id="{$v.manage_id}" lay-filter="status" lay-text="启用|停用" {if condition="$v['status'] == 0"} checked {/if} lay-skin="switch">
+                </form>
+            </td>
+            <td class="td-manage">
+                <a title="编辑"  onclick="x_admin_show('编辑','{:url("manager/manager_edit",["id"=>$v["manage_id"]])}',450,500)" href="javascript:;">
+                    <i class="layui-icon">&#xe642;</i>
+                </a>
+                <a mark="del" url="{:url('manager/manager_delete',['id'=>$v['manage_id']])}" href="javascript:;">
+                    <i class="layui-icon">&#xe640;</i>
+                </a>
+            </td>
+        </tr>
+        {/volist}
+        </tbody>
+    </table>
+    {$data.page}
+</div>
+<script>
+    Common.del();
+    Common.onoff("status","{:url('manager/manager_edit')}");
+</script>
+{/block}

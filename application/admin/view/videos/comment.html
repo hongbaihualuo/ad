@@ -1,0 +1,62 @@
+{extend name="public/base"}
+{block name="meta"}{/block}
+{block name="content"}
+<div class="x-body">
+    <div class="layui-row">
+        <form class="layui-form layui-col-md12 x-so" action="{:url('videos/comment')}" method="post">
+            <input class="layui-input" placeholder="开始日" value="{$data['search']['start']}" name="start" id="start">
+            <input class="layui-input" placeholder="截止日" value="{$data['search']['end']}" name="end" id="end">
+            <input type="text" name="title"  placeholder="视频标题" value="{$data['search']['title']}" autocomplete="off" class="layui-input">
+            <input type="text" name="account"  placeholder="用户账号" value="{$data['search']['account']}" autocomplete="off" class="layui-input">
+            <button class="layui-btn mt-3"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
+        </form>
+    </div>
+    <xblock>
+        <button mark="delall" url="{:url('videos/comment_delete')}" class="layui-btn layui-btn-danger"><i class="layui-icon"></i>批量删除</button>
+        <button class="layui-btn" onclick="x_admin_show('添加评论','{:url("videos/comment_add")}',400,300)"><i class="layui-icon"></i>添加</button>
+        <span class="x-right" style="line-height:40px">共有数据：{$data.count} 条</span>
+    </xblock>
+    <table class="layui-table">
+        <thead>
+        <tr>
+            <th>
+                <div class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i class="layui-icon">&#xe605;</i></div>
+            </th>
+            <th>视频标题</th>
+            <th>发布人</th>
+            <th>内容</th>
+            <th>时间</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {volist name="data.list" id="v"}
+        <tr>
+            <td>
+                <div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='{$v.id}'><i class="layui-icon">&#xe605;</i></div>
+            </td>
+            <td>{$v.title}</td>
+            <td>{$v.username}</td>
+            <td>{$v.content}</td>
+            <td>{$v.add_time}</td>
+            <td class="td-manage">
+                <a title="编辑"  onclick="x_admin_show('编辑','{:url("videos/comment_edit",["id"=>$v['id']])}',400,400)" href="javascript:;">
+                <i class="layui-icon">&#xe642;</i>
+                </a>
+                <a mark="del" url="{:url('videos/comment_delete',['id'=>$v['id']])}" href="javascript:;">
+                    <i class="layui-icon">&#xe640;</i>
+                </a>
+            </td>
+        </tr>
+        {/volist}
+        </tbody>
+    </table>
+    {$data.page}
+</div>
+<script>
+    $(function(){
+        Common.time();
+        Common.del();
+    })
+</script>
+{/block}

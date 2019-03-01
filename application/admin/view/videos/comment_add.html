@@ -1,0 +1,34 @@
+{extend name="public/base"}
+{block name="meta"}{/block}
+{block name="content"}
+<div class="x-body">
+    <form class="layui-form">
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                <span class="x-red">*</span>视频ID
+            </label>
+            <div class="layui-input-block">
+                <input type="num" name="id" lay-verify="id" placeholder="视频ID" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                <span class="x-red">*</span>评论条数
+            </label>
+            <div class="layui-input-block">
+                <input type="number" min="0" name="num" lay-verify="num" placeholder="需要填充的评论条数" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label"></label>
+            <button  class="layui-btn" lay-filter="submit" lay-submit="">
+                保存
+            </button>
+        </div>
+    </form>
+</div>
+<script>
+    Common.upload_video_one('#video');
+    Common.form_sumbit('submit','{:url("videos/comment_add")}');
+</script>
+{/block}

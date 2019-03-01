@@ -1,0 +1,40 @@
+{extend name="public/base"}
+{block name="meta"}{/block}
+{block name="content"}
+<div class="x-body">
+    <form class="layui-form">
+        {volist name="menuList" id="v"}
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                {$v.menu_name}
+            </label>
+            <div class="layui-input-block">
+                <input type="checkbox" name="right[]" value="{$v.menu_id}" lay-skin="primary" title="{$v.menu_name}" {if condition="in_array($v['menu_id'],$right)"} checked {/if}>
+                {if condition="count($v['child'])>0"}
+                {volist name="v.child" id="va"}
+                    <input type="checkbox" name="right[]" value="{$va.menu_id}" lay-skin="primary" title="{$va.menu_name}" {if condition="in_array($va['menu_id'],$right)"} checked {/if}>
+                    {if condition="count($va['child'])>0"}
+                    {volist name="va.child" id="val"}
+                        <input type="checkbox" name="right[]" value="{$val.menu_id}" lay-skin="primary" title="{$val.menu_name}" {if condition="in_array($val['menu_id'],$right)"} checked {/if}>
+                    {/volist}
+                    {/if}
+                {/volist}
+                {/if}
+            </div>
+        </div>
+        {/volist}
+        <input type="hidden" name="id" value="{$id}" lay-verify="id"/>
+        <div class="layui-form-item">
+            <label class="layui-form-label"></label>
+            <button  class="layui-btn" lay-filter="group_submit" lay-submit="">
+                保存
+            </button>
+        </div>
+    </form>
+</div>
+<script>
+    $(function(){
+        Common.form_sumbit('group_submit','{:url("manager/group_right_change")}');
+    })
+</script>
+{/block}

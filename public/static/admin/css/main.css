@@ -1,0 +1,15 @@
+
+.tac{text-align: center;}
+.fr{float: right;}
+.fl{float: left;}
+.x-green{color:green;}
+.mt-3{margin-top: -3px;}
+
+/* 通用 */
+.refresh{line-height:35px; margin-top:3px; float:right;}
+.pagination{display:block;margin-top: 20px;text-align: center;}
+.pagination li{display: inline-block; background: #fff ; color: #888; width: 38px;height: 38px; border: 1px solid #E2E2E2; }
+.pagination .active{display: inline-block;background: #009688 ;color: #fff; border: 1px solid #009688;}
+.pagination li a ,.pagination li span{display: block;width: 37px;height: 37px;line-height: 38px;}
+/* Set */
+.set-base-img{max-width: 100px;max-height: 100px;}
