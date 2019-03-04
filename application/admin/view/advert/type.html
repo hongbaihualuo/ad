@@ -1,0 +1,60 @@
+{extend name="public/base"}
+{block name="meta"}{/block}
+{block name="content"}
+<div class="x-body">
+    <div class="layui-row">
+        <form class="layui-form layui-col-md12 x-so" action="{:url('advert/type')}" method="post">
+            <input type="text" name="name"  placeholder="请输入类型名" value="{$data['search']['name']}" autocomplete="off" class="layui-input">
+            <button class="layui-btn mt-3"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
+        </form>
+    </div>
+    <xblock>
+        <button class="layui-btn" onclick="x_admin_show('添加类型','{:url("advert/type_add")}',450,500)"><i class="layui-icon"></i>添加</button>
+        <span class="x-right" style="line-height:40px">共有数据：{$data.count} 条</span>
+    </xblock>
+    <table class="layui-table">
+        <thead>
+        <tr>
+            <th>类型名</th>
+            <th>类型链接</th>
+            <th>类型模板</th>
+            <th>js引用</th>
+            <th>状态</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {volist name="data.list" id="v"}
+        <tr>
+            <td>{$v.type_name}</td>
+            <td>{$v.link}</td>
+            <td>{$v.templet_title}</td>
+            <td><textarea>{$v.type_js}</textarea></td>
+            <td>
+                {if condition="$v['status'] == 0"}
+                <span class="x-green">启用</span>
+                {else /}
+                <span class="x-red">停用</span>
+                {/if}
+            </td>
+            <td class="td-manage">
+                <a title="编辑"  onclick="x_admin_show('编辑','{:url("advert/type_edit",["id"=>$v["type_id"]])}',450,500)" href="javascript:;">
+                <i class="layui-icon">&#xe642;</i>
+                </a>
+                <a mark="del" url="{:url('advert/type_delete',['id'=>$v['type_id']])}" href="javascript:;">
+                    <i class="layui-icon">&#xe640;</i>
+                </a>
+            </td>
+        </tr>
+        {/volist}
+        </tbody>
+    </table>
+    {$data.page}
+</div>
+<script>
+    $(function(){
+        Common.del();
+        Common.time();
+    })
+</script>
+{/block}

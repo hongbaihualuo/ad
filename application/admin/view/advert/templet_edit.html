@@ -1,0 +1,29 @@
+{extend name="public/base"}
+{block name="meta"}{/block}
+{block name="content"}
+<div class="x-body">
+    <form class="layui-form">
+        <div class="layui-form-item">
+            <input type="hidden"  name="id" lay-verify="id" value="{$detail.templet_id}" >
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                模板
+            </label>
+            <div class="layui-input-block">
+                <textarea name="content" lay-verify="content" class="layui-textarea">{$detail.content}</textarea>
+                <div class="layui-form-mid layui-word-aux">{img}:图片地址，{title}:标题，{desc}:描述，{link}:链接（注：不懂代码谨慎修改）</div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label"></label>
+            <button  class="layui-btn" lay-filter="submit" lay-submit="">
+                保存
+            </button>
+        </div>
+    </form>
+</div>
+<script>
+    Common.form_sumbit('submit','{:url("advert/templet_edit")}');
+</script>
+{/block}

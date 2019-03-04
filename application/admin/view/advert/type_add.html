@@ -1,0 +1,56 @@
+{extend name="public/base"}
+{block name="meta"}{/block}
+{block name="content"}
+<div class="x-body">
+    <form class="layui-form">
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                <span class="x-red">*</span>类型名
+            </label>
+            <div class="layui-input-block">
+                <input type="text" maxlength="32" name="name" lay-verify="name" placeholder="方便广告选择，请尽量不和其他类型名重复" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                投放链接
+            </label>
+            <div class="layui-input-block">
+                <input type="text" maxlength="128" name="link" lay-verify="link" placeholder="广告投放的网站链接" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                广告模板
+            </label>
+            <div class="layui-input-block">
+                <select name="templet" lay-verify="type" lay-search="">
+                    {volist name='templet' id='v'}
+                    <option value="{$v.templet_id}">{$v.templet_title}</option>
+                    {/volist}
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                是否停用
+            </label>
+            <div class="layui-input-block">
+                <input type="radio" name="status" value="0" title="启用" checked="">
+                <input type="radio" name="status" value="1" title="停用">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label"></label>
+            <button  class="layui-btn" lay-filter="submit" lay-submit="">
+                保存
+            </button>
+        </div>
+    </form>
+</div>
+<script>
+    Common.upload_one('#img');
+    Common.form_sumbit('submit','{:url("advert/type_add")}');
+</script>
+{/block}

@@ -1,0 +1,89 @@
+{extend name="public/base"}
+{block name="meta"}{/block}
+{block name="content"}
+<div class="x-body">
+    <form class="layui-form">
+        <div class="layui-form-item">
+            <input type="hidden"  name="id" lay-verify="id" value="{$detail.ad_id}" >
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                <span class="x-red">*</span>广告名
+            </label>
+            <div class="layui-input-block">
+                <input type="text" maxlength="32" name="name" lay-verify="name" placeholder="广告名" value="{$detail.ad_name}" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                广告标题
+            </label>
+            <div class="layui-input-block">
+                <input type="text" maxlength="32" name="title" lay-verify="title" placeholder="广告内部文字信息可忽略" value="{$detail.ad_title}"  autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                广告描述
+            </label>
+            <div class="layui-input-block">
+                <input type="text" maxlength="128" name="desc" lay-verify="desc" placeholder="广告内部描述可忽略" value="{$detail.ad_desc}" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                广告类型
+            </label>
+            <div class="layui-input-block">
+                <select name="type" lay-verify="type" lay-search="">
+                    {volist name='type' id='v'}
+                    <option value="{$v.type_id}" {if condition="$detail['ad_type'] == $v['type_id']"} selected{/if}>{$v.type_name}</option>
+                    {/volist}
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                广告图片
+            </label>
+            <div class="layui-input-block">
+                <div class="layui-upload">
+                    <button type="button" class="layui-btn" id="img" url="{:url('set/base_upload')}">上传图片</button>
+                    <div class="layui-upload-list">
+                        <img class="layui-upload-img set-base-img" id="demo1" {if condition="$detail['ad_img']"} src="{$detail.ad_img}" {/if}>
+                        <input type="hidden" name="img" lay-verify="img" value="{$detail.ad_img}">
+                        <p id="demoText"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                广告链接
+            </label>
+            <div class="layui-input-block">
+                <input type="text" maxlength="128" name="link" lay-verify="link" placeholder="广告所对应链接" value="{$detail.ad_link}" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                是否停用
+            </label>
+            <div class="layui-input-block">
+                <input type="radio" name="status" value="0" title="启用" {if condition="$detail['status']==0"} checked{/if}>
+                <input type="radio" name="status" value="1" title="停用" {if condition="$detail['status']==1"} checked{/if}>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label"></label>
+            <button  class="layui-btn" lay-filter="submit" lay-submit="">
+                保存
+            </button>
+        </div>
+    </form>
+</div>
+<script>
+    Common.upload_one('#img');
+    Common.form_sumbit('submit','{:url("advert/ad_edit")}');
+</script>
+{/block}

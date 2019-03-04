@@ -12,7 +12,7 @@ class AdTemplet extends Model
      */
     public function get_templet($where='',$num=6,$page=0,$field='a.*')
     {
-        $this->field($field)->alias('a')->where($where)->order('a.templet_id desc');
+        $this->field($field)->alias('a')->where($where)->order('a.templet_id asc');
 
         if (!$page) {
             $list = $this->limit($num)->select();

@@ -13,12 +13,12 @@ class AdService extends Common {
      */
     public function ad_search(){
 
-        $search['title'] = input('title');
+        $search['name'] = input('name');
         $search['start'] = input('start');
         $search['end'] = input('end');
 
         $where = '1 = 1';
-        if ($search['title']) $where .= " and a.title like '%{$search['title']}%'";
+        if ($search['name']) $where .= " and a.ad_name like '%{$search['title']}%'";
         if ($search['start']) $where .= " and a.add_time > '{$search['start']}'";
         if ($search['end']) $where .= " and a.add_time <= '{$search['end']}'";
 
@@ -42,21 +42,24 @@ class AdService extends Common {
 
         $data = [
             'ad_type' => input('type'),
+            'ad_img' => input('img'),
             'ad_name' => input('name'),
             'ad_title' => input('title'),
             'ad_desc' => input('desc'),
+            'ad_link' => input('link'),
             'add_time' => date('Y-m-d H:i:s'),
             'status'   => input('status') == 0 ? input('status') : 1
         ];
 
         if (!is_numeric($data['ad_type'])) $this->cjson(1,'广告类型不正确！');
-        if ($data['ad_name']) $this->cjson(1,'广告名称不正确！');
+        if ($data['ad_img']) $this->cjson(1,'广告图片不能为空！');
+        if (!$data['ad_name']) $this->cjson(1,'广告名称不能为空！');
 
         $ad = new Ad();
         if ($id) {
             if ($data['status'] == 0) {
-                $data = $ad->get($id);
-                $check = AdType::get($data['type_id']);
+                $odata = $ad->get($id);
+                $check = AdType::get($odata['ad_type']);
                 if ($check['status'] == 1) return $this->cjson(1,'所在类型已停用，请先启用对应类型！');
             }
             $result = $ad->save($data,['ad_id'=>$id]);
@@ -67,9 +70,9 @@ class AdService extends Common {
         }
 
         if ($result) {
-            $this->cjson(0,'执行成功！');
+            return $this->cjson(0,'执行成功！');
         } else {
-            $this->cjson(1,'执行出错！');
+            return $this->cjson(1,'执行出错！');
         }
     }
 
@@ -84,7 +87,7 @@ class AdService extends Common {
 
         if ($status == 0) {
             $data = $ad->get($id);
-            $check = AdType::get($data['type_id']);
+            $check = AdType::get($data['ad_type']);
             if ($check['status'] == 1) return $this->cjson(1,'所在类型已停用，请先启用对应类型！');
         }
 
@@ -123,7 +126,7 @@ class AdService extends Common {
         $search['name'] = input('name');
 
         $where = '1 = 1';
-        if ($search['name']) $where .= " and a.link_name like '%{$search['name']}%'";
+        if ($search['name']) $where .= " and a.type_name like '%{$search['name']}%'";
 
         $adType = new AdType();
         $list = $adType->get_type($where,10,1);
@@ -144,26 +147,23 @@ class AdService extends Common {
         $id = input('id');
 
         $data = [
-            'link_name' => input('name'),
-            'link' => input('url'),
-            'templet_id' => input('templet'),
+            'type_name' => input('name'),
+            'link' => input('link'),
             'status'   => input('status') == 0 ? input('status') : 1
         ];
 
-        if (!$data['link_name']) $this->cjson(1,'链接名不能为空！');
+        if (!$data['type_name']) $this->cjson(1,'链接名不能为空！');
         if (!$data['link']) $this->cjson(1,'链接名不能为空！');
-
-        $check = AdTemplet::get(['templet_id'=>input('templet')]);
-        if (!$check) $this->cjson(1,'未找到对应分类！');
 
         $ad = new Ad();
         $adType = new AdType();
 
         if ($id) {
+            $data['templet_content'] = input('content');
             $ad->startTrans();
             $adType->startTrans();
             try{
-                $ad->save(['status'=>$data['status']],['type_id'=>$id]);
+                $ad->save(['status'=>$data['status']],['ad_type'=>$id]);
                 $adType->save($data,['type_id'=>$id]);
                 $ad->commit();
                 $adType->commit();
@@ -176,12 +176,27 @@ class AdService extends Common {
             }
 
         } else {
-            if ($ad->save($data)) {
+            $data['templet_id'] = input('templet');
+            $check = AdTemplet::get(['templet_id'=>$data['templet_id']]);
+            if (!$check) $this->cjson(1,'未找到对应分类！');
+
+            $data['templet_content'] = $check['content'];
+
+            $adType->startTrans();
+
+            try{
+                $adType->save($data);
+                $id = $adType->getLastInsID();
+                $js = '<script type="text/javascript" ad-data-type="ad" ad-data-id="'.$id.'" src="http://admin.jianghuyouka.com/static/ad.js"></script>';
+                $adType->save(['type_js'=>$js],['type_id'=>$id]);
+                $adType->commit();
                 $this->add_log(1,'添加类型',"添加类型");
-                $this->cjson(0,'执行成功！');
-            } else {
-                $this->cjson(1,'执行出错！');
+                return $this->cjson(0,'执行成功！');
+            }catch(Exception $e){
+                $adType->rollback();
+                return $this->cjson(1,'执行出错！');
             }
+
         }
     }
 
@@ -201,7 +216,7 @@ class AdService extends Common {
         $adType->startTrans();
 
         try{
-            $ad->where("type_id in ({$str})")->delete();
+            $ad->where("ad_type in ({$str})")->delete();
             $adType->where("type_id in ({$str})")->delete();
             $ad->commit();
             $adType->commit();
@@ -220,11 +235,10 @@ class AdService extends Common {
     public function templet_search(){
 
         $adTemplet = new AdTemplet();
-        $list = $adTemplet->get_templet('status = 0',10,1);
+        $list = $adTemplet->get_templet('',10,1);
 
         $data['list'] = $list;
-        $data['page'] = $list->render();
-        $data['count'] = $adTemplet->get_templet_count('status = 0');
+        $data['count'] = $adTemplet->get_templet_count('');
 
         return $data;
     }
@@ -237,11 +251,9 @@ class AdService extends Common {
         $id = input('id');
 
         $data = [
-            'templet_title' => input('templet_title'),
             'content' => input('content'),
         ];
 
-        if (!$data['templet_title']) $this->cjson(1,'标题名不能为空！');
         if (!$data['content']) $this->cjson(1,'内容不能为空！');
 
         $adTemplet = new AdTemplet();

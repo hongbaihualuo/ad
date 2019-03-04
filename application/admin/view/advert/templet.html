@@ -1,0 +1,26 @@
+{extend name="public/base"}
+{block name="meta"}{/block}
+{block name="content"}
+<div class="x-body">
+    <table class="layui-table">
+        <thead>
+        <tr>
+            <th>模板名</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {volist name="data.list" id="v"}
+        <tr>
+            <td>{$v.templet_title}</td>
+            <td class="td-manage">
+                <a title="编辑"  onclick="x_admin_show('编辑','{:url("advert/templet_edit",["id"=>$v["templet_id"]])}',450,300)" href="javascript:;">
+                <i class="layui-icon">&#xe642;</i>
+                </a>
+            </td>
+        </tr>
+        {/volist}
+        </tbody>
+    </table>
+</div>
+{/block}
