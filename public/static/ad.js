@@ -6,28 +6,54 @@ var data_id = $("[ad-data-type='ad']").attr('ad-data-id');
 
 $.post('http://ad.jianghuyouka.com/api/index/get_ad',{id:data_id},function(r){
     var res = $.parseJSON(r);
+    if (res.code > 0) {
+        console.log(res);
+    } else {
+        switch (res.data.templet_id) {
+            case 1:
+                start_open(res.data);
+                break;
+            case 2:
+                left_pos(res.data);
+                break;
+            case 3:
+                right_pos(res.data);
+                break;
+            case 4:
+                bottom_pos(res.data);
+                break;
+            case 5:
+                common_pos(res.data);
+                break;
+            case 6:
+                other_pos(res.data);
+                break;
+        }
+    }
 
-    console.log(r);
 })
 
 
 
-function start_open(){
+function start_open(data){
 
 }
 
-function left_pos(){
+function left_pos(data){
+    $('body').append(data.templet_content);
+}
+
+function right_pos(data){
 
 }
 
-function right_pos(){
+function bottom_pos(data){
 
 }
 
-function bottom_pos(){
+function common_pos(data){
 
 }
-
-function common_pos(){
+function other_pos(data){
 
 }
