@@ -39,7 +39,8 @@ class Index extends Controller{
         }
 
         $rand_keys = array_rand($datalist, 1);
-        $dataAd = $datalist[$rand_keys[0]];
+
+        $dataAd = $datalist[$rand_keys];
 
         $dataType['templet_content'] = str_replace('{img}',$dataAd['ad_img'],$dataType['templet_content']);
         $dataType['templet_content'] = str_replace('{link}',$dataAd['ad_link'],$dataType['templet_content']);
