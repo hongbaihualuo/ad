@@ -187,7 +187,7 @@ class AdService extends Common {
             try{
                 $adType->save($data);
                 $id = $adType->getLastInsID();
-                $js = '<script type="text/javascript" ad-data-type="ad" ad-data-id="'.$id.'" src="http://admin.jianghuyouka.com/static/ad.js"></script>';
+                $js = '<script type="text/javascript" ad-data-type="ad" ad-data-id="'.$id.'" src="http://ad.jianghuyouka.com/static/ad.js"></script>';
                 $adType->save(['type_js'=>$js],['type_id'=>$id]);
                 $adType->commit();
                 $this->add_log(1,'添加类型',"添加类型");
