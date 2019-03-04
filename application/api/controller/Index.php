@@ -2,6 +2,7 @@
 namespace app\api\controller;
 
 
+use app\admin\model\System;
 use app\api\model\Ad;
 use app\api\model\AdType;
 use think\Controller;
@@ -24,6 +25,7 @@ class Index extends Controller{
         $ad = new Ad();
         $adType = new AdType();
 
+        $sys = System::get(1);
         $dataType = $adType->get($type_id);
         $datalist = $ad->get_ad("ad_type = {$type_id}",1000);
         if (!$dataType) {
@@ -42,7 +44,7 @@ class Index extends Controller{
 
         $dataAd = $datalist[$rand_keys];
 
-        $dataType['templet_content'] = str_replace('{img}',$dataAd['ad_img'],$dataType['templet_content']);
+        $dataType['templet_content'] = str_replace('{img}','http:\\'.$sys['domain'].$dataAd['ad_img'],$dataType['templet_content']);
         $dataType['templet_content'] = str_replace('{link}',$dataAd['ad_link'],$dataType['templet_content']);
         $dataType['templet_content'] = str_replace('{title}',$dataAd['ad_title'],$dataType['templet_content']);
         $dataType['templet_content'] = str_replace('{desc}',$dataAd['ad_desc'],$dataType['templet_content']);

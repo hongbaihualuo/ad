@@ -5,6 +5,8 @@
 var data_id = $("[ad-data-type='ad']").attr('ad-data-id');
 
 $.post('http://ad.jianghuyouka.com/api/index/get_ad',{id:data_id},function(r){
+    var res = $.parseJSON(r);
+
     console.log(r);
 })
 
