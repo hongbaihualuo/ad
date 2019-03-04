@@ -26,7 +26,7 @@ class Index extends Controller{
 
         $dataType = $adType->get($type_id);
         $datalist = $ad->get_ad("ad_type = {$type_id}",1000);
-        if ($dataType) {
+        if (!$dataType) {
             $result['code'] = 1;
             $result['msg'] = '未找到该广告';
             die(json_encode($result));
