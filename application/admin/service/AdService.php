@@ -4,6 +4,7 @@ namespace app\admin\service;
 use app\admin\model\Ad;
 use app\admin\model\AdTemplet;
 use app\admin\model\AdType;
+use app\admin\model\System;
 use think\image\Exception;
 
 class AdService extends Common {
@@ -183,6 +184,7 @@ class AdService extends Common {
             $data['templet_content'] = $check['content'];
 
             $adType->startTrans();
+      
             $sys = System::get(1);
             try{
                 $adType->save($data);
