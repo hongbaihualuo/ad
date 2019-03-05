@@ -30,7 +30,7 @@ switch (ad_templet) {
 
 function start_open(ad_id){
 
-    if (getCookie('ad_start_time')) {
+    if (!getCookie('ad_start_time')) {
         $.ajaxSettings.async = false;
         $.post('http://ad.jianghuyouka.com/api/index/get_ad',{id:ad_id},function(r){
             var res = $.parseJSON(r);
