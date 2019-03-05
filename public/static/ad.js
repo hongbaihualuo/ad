@@ -97,7 +97,7 @@ function common_pos(ad_id){
         if (res.code > 0) {
             console.log(res);
         } else {
-            $('body').append(res.data.templet_content);
+            $("[ad-type='ad']").after(res.data.templet_content);
         }
     })
 }
