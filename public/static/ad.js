@@ -29,32 +29,37 @@ switch (ad_templet) {
 
 
 function start_open(ad_id){
-    $.ajaxSettings.async = false;
-    $.post('http://ad.jianghuyouka.com/api/index/get_ad',{id:ad_id},function(r){
-        var res = $.parseJSON(r);
 
-        if (res.code > 0) {
-            console.log(res);
-        } else {
-            $('html').append(res.data.templet_content);
-            var sc = 5;
-            ref = setInterval(function(){
-                sc --;
-                if(sc==0){
+    if (getCookie('ad_start_time')) {
+        $.ajaxSettings.async = false;
+        $.post('http://ad.jianghuyouka.com/api/index/get_ad',{id:ad_id},function(r){
+            var res = $.parseJSON(r);
+
+            if (res.code > 0) {
+                console.log(res);
+            } else {
+                $('html').append(res.data.templet_content);
+                var sc = 5;
+                ref = setInterval(function(){
+                    sc --;
+                    if(sc==0){
+                        $('#ad').remove();
+                        clearInterval(ref);
+                    }else{
+                        $('#ad button').html('跳过'+sc);
+                    }
+                },1000);
+
+                $('#ad button').click(function(){
                     $('#ad').remove();
                     clearInterval(ref);
-                }else{
-                    $('#ad button').html('跳过'+sc);
-                }
-            },1000);
+                })
+            }
+        })
+        $.ajaxSettings.async = true;
+        setCookie('ad_start_time',Date.parse(new Date()),3600);
+    }
 
-            $('#ad button').click(function(){
-                $('#ad').remove();
-                clearInterval(ref);
-            })
-        }
-    })
-    $.ajaxSettings.async = true;
 }
 
 function left_pos(ad_id){
@@ -110,4 +115,29 @@ function other_pos(ad_id){
             $('body').append(res.data.templet_content);
         }
     })
+}
+
+
+function setCookie(c_name,value,expiredays)
+{
+    var exdate=new Date()
+    exdate.setDate(exdate.getDate()+expiredays)
+    document.cookie=c_name+ "=" +escape(value)+
+        ((expiredays==null) ? "" : ";expires="+exdate.toGMTString())
+}
+
+function getCookie(c_name)
+{
+    if (document.cookie.length>0)
+    {
+        c_start=document.cookie.indexOf(c_name + "=")
+        if (c_start!=-1)
+        {
+            c_start=c_start + c_name.length+1
+            c_end=document.cookie.indexOf(";",c_start)
+            if (c_end==-1) c_end=document.cookie.length
+            return unescape(document.cookie.substring(c_start,c_end))
+        }
+    }
+    return ""
 }
