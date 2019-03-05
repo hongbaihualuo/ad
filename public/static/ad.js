@@ -69,6 +69,9 @@ function left_pos(ad_id){
             console.log(res);
         } else {
             $('body').append(res.data.templet_content);
+            $('#ad_close').click(function(){
+                $(this).remove();
+            })
         }
     })
 
@@ -81,6 +84,9 @@ function right_pos(ad_id){
             console.log(res);
         } else {
             $('body').append(res.data.templet_content);
+            $('#ad_close').click(function(){
+                $(this).remove();
+            })
         }
     })
 }
@@ -92,6 +98,9 @@ function bottom_pos(ad_id){
             console.log(res);
         } else {
             $('body').append(res.data.templet_content);
+            $('#ad_close').click(function(){
+                $(this).remove();
+            })
         }
     })
 }
@@ -142,6 +151,3 @@ function getCookie(c_name)
     return ""
 }
 
-$('#ad_close').click(function(){
-    $(this).remove();
-})
