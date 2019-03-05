@@ -37,7 +37,7 @@ function start_open(ad_id){
             console.log(res);
         } else {
             $('html').append(res.data.templet_content);
-            var sc = 80;
+            var sc = 5;
             ref = setInterval(function(){
                 sc --;
                 if(sc==0){
