@@ -70,7 +70,7 @@ function left_pos(ad_id){
         } else {
             $('body').append(res.data.templet_content);
             $('#ad_close').click(function(){
-                $(this).remove();
+                $(this).parent('div').remove();
             })
         }
     })
@@ -85,7 +85,7 @@ function right_pos(ad_id){
         } else {
             $('body').append(res.data.templet_content);
             $('#ad_close').click(function(){
-                $(this).remove();
+                $(this).parent('div').remove();
             })
         }
     })
@@ -99,7 +99,7 @@ function bottom_pos(ad_id){
         } else {
             $('body').append(res.data.templet_content);
             $('#ad_close').click(function(){
-                $(this).remove();
+                $(this).parent('div').remove();
             })
         }
     })
