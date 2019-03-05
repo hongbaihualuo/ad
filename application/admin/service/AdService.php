@@ -184,7 +184,7 @@ class AdService extends Common {
             $data['templet_content'] = $check['content'];
 
             $adType->startTrans();
-      
+
             $sys = System::get(1);
             try{
                 $adType->save($data);

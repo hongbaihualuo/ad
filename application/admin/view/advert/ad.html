@@ -6,20 +6,19 @@
         <form class="layui-form layui-col-md12 x-so" action="{:url('advert/ad')}" method="post">
             <input class="layui-input" placeholder="开始日" value="{$data['search']['start']}" name="start" id="start">
             <input class="layui-input" placeholder="截止日" value="{$data['search']['end']}" name="end" id="end">
-            <input type="text" name="name"  placeholder="请输入广告标题" value="{$data['search']['name']}" autocomplete="off" class="layui-input">
+            <input type="text" name="name"  placeholder="请输入内容标题" value="{$data['search']['name']}" autocomplete="off" class="layui-input">
             <button class="layui-btn mt-3"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
         </form>
     </div>
     <xblock>
-        <button class="layui-btn" onclick="x_admin_show('添加广告','{:url("advert/ad_add")}',450,600)"><i class="layui-icon"></i>添加</button>
+        <button class="layui-btn" onclick="x_admin_show('添加内容','{:url("advert/ad_add")}',450,600)"><i class="layui-icon"></i>添加</button>
         <span class="x-right" style="line-height:40px">共有数据：{$data.count} 条</span>
     </xblock>
     <table class="layui-table">
         <thead>
         <tr>
-            <th>类型</th>
-            <th>广告名</th>
-            <th>广告链接</th>
+            <th>所属广告</th>
+            <th>内容名</th>
             <th>图片</th>
             <th>链接</th>
             <th>状态</th>
@@ -30,7 +29,6 @@
         {volist name="data.list" id="v"}
         <tr>
             <td>{$v.type_name}</td>
-            <td>{$v.ad_name}</td>
             <td>{$v.ad_name}</td>
             <td><img width="100" src="{$v.ad_img}"></td>
             <td>{$v.ad_link}</td>
