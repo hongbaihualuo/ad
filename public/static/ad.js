@@ -3,7 +3,7 @@
  */
 
 var ad_id = $("[ad-type='ad']").attr('ad-id');
-var ad_templet = $("[ad-type='ad']").attr('ad_templet');
+var ad_templet = parseInt($("[ad-type='ad']").attr('ad-templet'));
 
 switch (ad_templet) {
     case 1:
@@ -32,11 +32,13 @@ function start_open(ad_id){
     $.ajaxSettings.async = false;
     $.post('http://ad.jianghuyouka.com/api/index/get_ad',{id:ad_id},function(r){
         var res = $.parseJSON(r);
+
         if (res.code > 0) {
             console.log(res);
         } else {
             $('html').append(res.data.templet_content);
-            var sc = 5;
+            console.log(res.data.templet_content);
+            var sc = 80;
             ref = setInterval(function(){
                 sc --;
                 if(sc==0){

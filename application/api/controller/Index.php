@@ -10,6 +10,7 @@ use think\Controller;
 class Index extends Controller{
     public function get_ad()
     {
+        header("Content-type:text/html;charset=utf-8");
         header("Access-Control-Allow-Origin: *");
         header('Access-Control-Allow-Headers: X-Requested-With,X_Requested_With');
 
