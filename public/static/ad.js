@@ -2,58 +2,111 @@
  * Created by Administrator on 2019/3/4.
  */
 
-var data_id = $("[ad-data-type='ad']").attr('ad-data-id');
+var ad_id = $("[ad-type='ad']").attr('ad-id');
+var ad_templet = $("[ad-type='ad']").attr('ad_templet');
 
-$.post('http://ad.jianghuyouka.com/api/index/get_ad',{id:data_id},function(r){
-    var res = $.parseJSON(r);
-    if (res.code > 0) {
-        console.log(res);
-    } else {
-        switch (res.data.templet_id) {
-            case 1:
-                start_open(res.data);
-                break;
-            case 2:
-                left_pos(res.data);
-                break;
-            case 3:
-                right_pos(res.data);
-                break;
-            case 4:
-                bottom_pos(res.data);
-                break;
-            case 5:
-                common_pos(res.data);
-                break;
-            case 6:
-                other_pos(res.data);
-                break;
+switch (ad_templet) {
+    case 1:
+        start_open(ad_id);
+        break;
+    case 2:
+        left_pos(ad_id);
+        break;
+    case 3:
+        right_pos(ad_id);
+        break;
+    case 4:
+        bottom_pos(ad_id);
+        break;
+    case 5:
+        common_pos(ad_id);
+        break;
+    case 6:
+        other_pos(ad_id);
+        break;
+}
+
+
+
+function start_open(ad_id){
+    $.ajaxSettings.async = false;
+    $.post('http://ad.jianghuyouka.com/api/index/get_ad',{id:ad_id},function(r){
+        var res = $.parseJSON(r);
+        if (res.code > 0) {
+            console.log(res);
+        } else {
+            $('html').append(res.data.templet_content);
+            var sc = 5;
+            ref = setInterval(function(){
+                sc --;
+                if(sc==0){
+                    $('#ad').remove();
+                    clearInterval(ref);
+                }else{
+                    $('#ad button').html('跳过'+sc);
+                }
+            },1000);
+
+            $('#ad button').click(function(){
+                $('#ad').remove();
+                clearInterval(ref);
+            })
         }
-    }
+    })
+    $.ajaxSettings.async = true;
+}
 
-})
-
-
-
-function start_open(data){
+function left_pos(ad_id){
+    $.post('http://ad.jianghuyouka.com/api/index/get_ad',{id:ad_id},function(r){
+        var res = $.parseJSON(r);
+        if (res.code > 0) {
+            console.log(res);
+        } else {
+            $('body').append(res.data.templet_content);
+        }
+    })
 
 }
 
-function left_pos(data){
-    $('body').append(data.templet_content);
+function right_pos(ad_id){
+    $.post('http://ad.jianghuyouka.com/api/index/get_ad',{id:ad_id},function(r){
+        var res = $.parseJSON(r);
+        if (res.code > 0) {
+            console.log(res);
+        } else {
+            $('body').append(res.data.templet_content);
+        }
+    })
 }
 
-function right_pos(data){
-
+function bottom_pos(ad_id){
+    $.post('http://ad.jianghuyouka.com/api/index/get_ad',{id:ad_id},function(r){
+        var res = $.parseJSON(r);
+        if (res.code > 0) {
+            console.log(res);
+        } else {
+            $('body').append(res.data.templet_content);
+        }
+    })
 }
 
-function bottom_pos(data){
-
+function common_pos(ad_id){
+    $.post('http://ad.jianghuyouka.com/api/index/get_ad',{id:ad_id},function(r){
+        var res = $.parseJSON(r);
+        if (res.code > 0) {
+            console.log(res);
+        } else {
+            $('body').append(res.data.templet_content);
+        }
+    })
 }
-
-function common_pos(data){
-
-}
-function other_pos(data){
-
+function other_pos(ad_id){
+    $.post('http://ad.jianghuyouka.com/api/index/get_ad',{id:ad_id},function(r){
+        var res = $.parseJSON(r);
+        if (res.code > 0) {
+            console.log(res);
+        } else {
+            $('body').append(res.data.templet_content);
+        }
+    })
 }
