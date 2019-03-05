@@ -141,3 +141,7 @@ function getCookie(c_name)
     }
     return ""
 }
+
+$('#ad_close').click(function(){
+    $(this).remove();
+})
