@@ -11,7 +11,7 @@
  Target Server Version : 50553
  File Encoding         : 65001
 
- Date: 04/03/2019 17:17:34
+ Date: 05/03/2019 09:35:33
 */
 
 SET NAMES utf8mb4;
@@ -37,7 +37,7 @@ CREATE TABLE `ac_ad`  (
 -- ----------------------------
 -- Records of ac_ad
 -- ----------------------------
-INSERT INTO `ac_ad` VALUES (4, 9, '/uploads/img/20190304/07eaaf71ba01f57b91136ebbe8d33fe9.jpg', '支付宝福字', '', '', 'http://www.baidu.com', '2019-03-04 16:31:45', 0);
+INSERT INTO `ac_ad` VALUES (4, 9, '/uploads/img/20190304/07eaaf71ba01f57b91136ebbe8d33fe9.jpg', '支付宝福字', '123', '', 'http://www.baidu.com', '2019-03-05 09:19:46', 0);
 
 -- ----------------------------
 -- Table structure for ac_ad_templet
@@ -78,7 +78,7 @@ CREATE TABLE `ac_ad_type`  (
 -- ----------------------------
 -- Records of ac_ad_type
 -- ----------------------------
-INSERT INTO `ac_ad_type` VALUES (9, '崖崖小说-左悬浮', '<script type=\"text/javascript\" ad-data-type=\"ad\" ad-data-id=\"9\" src=\"http://admin.jianghuyouka.com/static/ad.js\"></script>', 'www.yaya.com', 2, '<div style=\"position: fixed;left:0;top:30%;\">\n        <a href=\"{link}\"><img src=\"{img}\" /></a>\n        <div style=\"position: absolute;bottom:0;left:0;width:100%;text-align: center\">\n            {title}\n            {desc}\n        </div>\n    </div>', 0);
+INSERT INTO `ac_ad_type` VALUES (9, '崖崖小说-左悬浮', '<script type=\"text/javascript\" ad-data-type=\"ad\" ad-data-id=\"9\" src=\"http://ad.jianghuyouka.com/static/ad.js\"></script>', 'www.yaya.com', 2, '<div style=\"position:fixed;left:0;top:30%;\">\n        <a href=\"{link}\"><img src=\"{img}\" /></a>\n        <div style=\"position: absolute;bottom:0;left:0;width:100%;text-align: center\">\n            {title}\n            {desc}\n        </div>\n    </div>', 0);
 
 -- ----------------------------
 -- Table structure for ac_carousel
@@ -156,7 +156,7 @@ CREATE TABLE `ac_manage_log`  (
   `type` tinyint(1) NOT NULL DEFAULT 0 COMMENT '类型 0 登录 1 添加 2 修改 3 删除 4 其他',
   `add_time` datetime NOT NULL COMMENT '添加时间',
   PRIMARY KEY (`manage_log_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 103 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 106 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of ac_manage_log
@@ -263,6 +263,9 @@ INSERT INTO `ac_manage_log` VALUES (99, '删除类型', '删除类型', 1, '127.
 INSERT INTO `ac_manage_log` VALUES (100, '添加类型', '添加类型', 1, '127.0.0.1', 1, '2019-03-04 16:31:07');
 INSERT INTO `ac_manage_log` VALUES (101, '上传文件', '文件路径:/uploads/img/20190304/07eaaf71ba01f57b91136ebbe8d33fe9.jpg', 1, '127.0.0.1', 1, '2019-03-04 16:31:33');
 INSERT INTO `ac_manage_log` VALUES (102, '添加广告', '添加广告', 1, '127.0.0.1', 1, '2019-03-04 16:31:45');
+INSERT INTO `ac_manage_log` VALUES (103, '登录', '登录', 1, '127.0.0.1', 0, '2019-03-05 09:04:48');
+INSERT INTO `ac_manage_log` VALUES (104, '修改类型', '修改类型', 1, '127.0.0.1', 2, '2019-03-05 09:07:21');
+INSERT INTO `ac_manage_log` VALUES (105, '修改广告', '修改广告', 1, '127.0.0.1', 2, '2019-03-05 09:19:46');
 
 -- ----------------------------
 -- Table structure for ac_menu
@@ -313,15 +316,15 @@ INSERT INTO `ac_menu` VALUES (27, 22, '&#xe6a9;', '用户类型', 'member', 'typ
 INSERT INTO `ac_menu` VALUES (28, 27, '', '用户类型添加', 'member', 'type_add', 1, 1);
 INSERT INTO `ac_menu` VALUES (29, 27, '', '用户类型修改', 'member', 'type_edit', 1, 1);
 INSERT INTO `ac_menu` VALUES (30, 27, '', '用户类型删除', 'member', 'type_delete', 1, 1);
-INSERT INTO `ac_menu` VALUES (38, 36, '', '广告类型修改', 'advert', 'type_edit', 1, 0);
-INSERT INTO `ac_menu` VALUES (37, 36, '', '广告类型添加', 'advert', 'type_add', 1, 0);
-INSERT INTO `ac_menu` VALUES (36, 31, '&#xe6fa;', '广告类型', 'advert', 'type', 0, 0);
-INSERT INTO `ac_menu` VALUES (35, 32, '', '广告删除', 'advert', 'ad_delete', 1, 0);
-INSERT INTO `ac_menu` VALUES (34, 32, '', '广告修改', 'advert', 'ad_edit', 1, 0);
-INSERT INTO `ac_menu` VALUES (33, 32, '', '广告添加', 'advert', 'ad_add', 1, 0);
-INSERT INTO `ac_menu` VALUES (32, 31, '&#xe6fa;', '广告列表', 'advert', 'ad', 0, 0);
+INSERT INTO `ac_menu` VALUES (38, 36, '', '广告修改', 'advert', 'type_edit', 1, 0);
+INSERT INTO `ac_menu` VALUES (37, 36, '', '广告添加', 'advert', 'type_add', 1, 0);
+INSERT INTO `ac_menu` VALUES (36, 31, '&#xe6fa;', '广告列表', 'advert', 'type', 0, 0);
+INSERT INTO `ac_menu` VALUES (35, 32, '', '广告内容删除', 'advert', 'ad_delete', 1, 0);
+INSERT INTO `ac_menu` VALUES (34, 32, '', '广告内容修改', 'advert', 'ad_edit', 1, 0);
+INSERT INTO `ac_menu` VALUES (33, 32, '', '广告内容添加', 'advert', 'ad_add', 1, 0);
+INSERT INTO `ac_menu` VALUES (32, 31, '&#xe6fa;', '广告内容', 'advert', 'ad', 0, 0);
 INSERT INTO `ac_menu` VALUES (31, 0, '&#xe6b3;', '广告管理', 'advert', 'index', 0, 0);
-INSERT INTO `ac_menu` VALUES (39, 36, '', '广告类型删除', 'advert', 'type_delete', 1, 0);
+INSERT INTO `ac_menu` VALUES (39, 36, '', '广告删除', 'advert', 'type_delete', 1, 0);
 INSERT INTO `ac_menu` VALUES (40, 0, '&#xe74a;', '模板管理', 'advert', 'templet', 0, 0);
 INSERT INTO `ac_menu` VALUES (41, 40, '&#xe6fa;', '广告模板', 'advert', 'templet', 0, 0);
 INSERT INTO `ac_menu` VALUES (42, 41, '', '广告模板添加', 'advert', 'templet_add', 1, 0);
@@ -374,7 +377,7 @@ CREATE TABLE `ac_system`  (
 -- ----------------------------
 -- Records of ac_system
 -- ----------------------------
-INSERT INTO `ac_system` VALUES (1, '胡桃社', '胡桃社，月光社', 'sad发送到发送到发送到发送到发顺丰的', '撒打发斯蒂芬阿斯蒂芬阿斯蒂芬                          ', '2019', 'www.baidu.com', '阿斯蒂芬啊', '阿士大夫撒地方', '按时发达月光社月光社斯蒂芬', '15855685005', '/uploads/img/20190220/4cf6f48799a4954e2f3c786d42a41578.jpg', '1315381101', '1315381101@qq.com', 'sadfjklasdjflkasjdf     ');
+INSERT INTO `ac_system` VALUES (1, '胡桃社', '胡桃社，月光社', 'sad发送到发送到发送到发送到发顺丰的', '撒打发斯蒂芬阿斯蒂芬阿斯蒂芬                          ', '2019', 'www.ad.com', '阿斯蒂芬啊', '阿士大夫撒地方', '按时发达月光社月光社斯蒂芬', '15855685005', '/uploads/img/20190220/4cf6f48799a4954e2f3c786d42a41578.jpg', '1315381101', '1315381101@qq.com', 'sadfjklasdjflkasjdf     ');
 
 -- ----------------------------
 -- Table structure for ac_user
