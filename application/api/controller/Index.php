@@ -27,8 +27,8 @@ class Index extends Controller{
         $adType = new AdType();
 
         $sys = System::get(1);
-        $dataType = $adType->get($type_id);
-        $datalist = $ad->get_ad("ad_type = {$type_id}",1000);
+        $dataType = $adType->get(['type_id'=>$type_id,'status'=>0]);
+        $datalist = $ad->get_ad("ad_type = {$type_id} and status = 0",1000);
         if (!$dataType) {
             $result['code'] = 1;
             $result['msg'] = '未找到该广告';
