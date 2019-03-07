@@ -52,9 +52,9 @@ class AdService extends Common {
             'status'   => input('status') == 0 ? input('status') : 1
         ];
 
-        if (!is_numeric($data['ad_type'])) $this->cjson(1,'广告类型不正确！');
-        if ($data['ad_img']) $this->cjson(1,'广告图片不能为空！');
-        if (!$data['ad_name']) $this->cjson(1,'广告名称不能为空！');
+        if (!is_numeric($data['ad_type'])) return $this->cjson(1,'广告类型不正确！');
+        if (!$data['ad_img']) return $this->cjson(1,'广告图片不能为空！');
+        if (!$data['ad_name']) return $this->cjson(1,'广告名称不能为空！');
 
         $ad = new Ad();
         if ($id) {
@@ -153,8 +153,8 @@ class AdService extends Common {
             'status'   => input('status') == 0 ? input('status') : 1
         ];
 
-        if (!$data['type_name']) $this->cjson(1,'链接名不能为空！');
-        if (!$data['link']) $this->cjson(1,'链接名不能为空！');
+        if (!$data['type_name']) return $this->cjson(1,'链接名不能为空！');
+        if (!$data['link']) return $this->cjson(1,'链接名不能为空！');
 
         $ad = new Ad();
         $adType = new AdType();
@@ -256,7 +256,7 @@ class AdService extends Common {
             'content' => input('content'),
         ];
 
-        if (!$data['content']) $this->cjson(1,'内容不能为空！');
+        if (!$data['content']) return $this->cjson(1,'内容不能为空！');
 
         $adTemplet = new AdTemplet();
 
