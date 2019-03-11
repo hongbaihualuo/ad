@@ -29,9 +29,11 @@
                 {/if}
             </td>
             <td>
+				{if condition="$v['manage_group_id'] != 1"}
                 <button class="layui-btn layui-btn layui-btn-xs" onclick="x_admin_show('权限设置','{:url("manager/group_right",["id"=>$v["manage_group_id"]])}',800,600)">
                 <i class="layui-icon"></i>编辑
                 </button>
+				{/if}
             </td>
             <td class="td-manage">
                 <a title="编辑"  onclick="x_admin_show('编辑','{:url("manager/group_edit",["id"=>$v["manage_group_id"]])}',400,300)" href="javascript:;">
