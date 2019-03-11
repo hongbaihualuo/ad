@@ -32,7 +32,7 @@ function start_open(ad_id){
 
     if (!getCookie('ad_start_time')) {
         $.ajaxSettings.async = false;
-        $.post('http://ad.jianghuyouka.com/api/index/get_ad',{id:ad_id},function(r){
+        $.post('http://admanage.jianghuyouka.com/api/index/get_ad',{id:ad_id},function(r){
             var res = $.parseJSON(r);
 
             if (res.code > 0) {
@@ -63,7 +63,7 @@ function start_open(ad_id){
 }
 
 function left_pos(ad_id){
-    $.post('http://ad.jianghuyouka.com/api/index/get_ad',{id:ad_id},function(r){
+    $.post('http://admanage.jianghuyouka.com/api/index/get_ad',{id:ad_id},function(r){
         var res = $.parseJSON(r);
         if (res.code > 0) {
             console.log(res);
@@ -78,7 +78,7 @@ function left_pos(ad_id){
 }
 
 function right_pos(ad_id){
-    $.post('http://ad.jianghuyouka.com/api/index/get_ad',{id:ad_id},function(r){
+    $.post('http://admanage.jianghuyouka.com/api/index/get_ad',{id:ad_id},function(r){
         var res = $.parseJSON(r);
         if (res.code > 0) {
             console.log(res);
@@ -92,7 +92,7 @@ function right_pos(ad_id){
 }
 
 function bottom_pos(ad_id){
-    $.post('http://ad.jianghuyouka.com/api/index/get_ad',{id:ad_id},function(r){
+    $.post('http://admanage.jianghuyouka.com/api/index/get_ad',{id:ad_id},function(r){
         var res = $.parseJSON(r);
         if (res.code > 0) {
             console.log(res);
@@ -106,7 +106,7 @@ function bottom_pos(ad_id){
 }
 
 function common_pos(ad_id){
-    $.post('http://ad.jianghuyouka.com/api/index/get_ad',{id:ad_id},function(r){
+    $.post('http://admanage.jianghuyouka.com/api/index/get_ad',{id:ad_id},function(r){
         var res = $.parseJSON(r);
         if (res.code > 0) {
             console.log(res);
@@ -116,7 +116,7 @@ function common_pos(ad_id){
     })
 }
 function other_pos(ad_id){
-    $.post('http://ad.jianghuyouka.com/api/index/get_ad',{id:ad_id},function(r){
+    $.post('http://admanage.jianghuyouka.com/api/index/get_ad',{id:ad_id},function(r){
         var res = $.parseJSON(r);
         if (res.code > 0) {
             console.log(res);
